@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour {
 
-    public float speed;
+    public float speed = 10;
+    public float dashSpeed = 100;
+    public float dashCooldown = .5f;
+    public float dashTime = .8f;
 
     private Rigidbody2D rb2d;
 
@@ -15,25 +18,52 @@ public class CharacterControl : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
 	}
 
-    private float horz;
-    private float vert;
+    private float horz = 0;
+    private float vert = 0;
+    private bool dashStart = false;
+    private float curDashCooldown = 0;
     void Update()
     {
-        float horz = Input.GetAxis("Horizontal");
-
-        float vert = Input.GetAxis("Vertical");
+        horz = Input.GetAxis("Horizontal");
+        vert = Input.GetAxis("Vertical");
+        if (Input.GetButtonDown("Jump") && curDashCooldown <= 0 && !dashing)
+        {
+            dashStart = true;
+        }
+        
     }
 
-
+    private Vector2 dashDir;
+    private bool dashing = false;
     void FixedUpdate () {
 
-        
+        float updateTime = Time.deltaTime;
 
         Vector2 dir = new Vector2(horz, vert);
-        dir.Normalize();
         Debug.Log("dir:" + dir);
 
-        rb2d.MovePosition(rb2d.position + (dir * speed));
+        if (dashStart)
+        {
+            Debug.Log("Dash!");
+            dashDir = dir;
+            dashing = true;
+            rb2d.MovePosition(rb2d.position + (dashDir * dashDir * updateTime));
+            curDashCooldown = dashCooldown;
+            dashStart = false;
+        }
+        else if(!dashing)
+        {
+            rb2d.MovePosition(rb2d.position + (dir * speed * updateTime));
+        }
+        else if(dashing)
+        {
+            rb2d.MovePosition(rb2d.position + (dashDir * dashSpeed * updateTime));
+            curDashCooldown -= updateTime;
+            if(curDashCooldown <= 0)
+            {
+                dashing = false;
+            }
+        }
         Debug.Log("Vel:" + rb2d.velocity);
 	}
 }
