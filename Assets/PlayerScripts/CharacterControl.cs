@@ -16,12 +16,14 @@ public class CharacterControl : MonoBehaviour {
 
         Debug.Log("started");
         rb2d = GetComponent<Rigidbody2D>();
+        
 	}
 
     private float horz = 0;
     private float vert = 0;
     private bool dashStart = false;
     private float curDashCooldown = 0;
+    private Vector2 cursorPos;
     void Update()
     {
         horz = Input.GetAxis("Horizontal");
@@ -30,11 +32,14 @@ public class CharacterControl : MonoBehaviour {
         {
             dashStart = true;
         }
-        
+
+        cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
     }
 
     private Vector2 dashDir;
     private bool dashing = false;
+    private float angle;
     void FixedUpdate () {
 
         float updateTime = Time.deltaTime;
@@ -54,6 +59,18 @@ public class CharacterControl : MonoBehaviour {
         else if(!dashing)
         {
             rb2d.MovePosition(rb2d.position + (dir * speed * updateTime));
+
+            Vector2 front = cursorPos - (Vector2)transform.position;
+            Debug.Log("CursorPos:" + cursorPos +" front:" + front);
+            front.Normalize();
+            float angleRot = Vector2.Angle(Vector2.right, front);
+            if (front.y < 0)
+            {
+                angleRot = -angleRot;
+            }
+           
+            rb2d.rotation = angleRot;
+
         }
         else if(dashing)
         {
