@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 534487536}
   - component: {fileID: 534487539}
   - component: {fileID: 534487540}
+  - component: {fileID: 534487541}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -144,9 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  dashSpeed: 100
+  dashSpeed: 40
   dashCooldown: 0.5
-  dashTime: 0.8
+  dashTime: 0.1
 --- !u!212 &534487537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -251,6 +252,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &534487541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534487535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b10ba984cea9ff4d8e972e352ede99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraObject: {fileID: 1161084138}
+  camFollowDistance: 5
+  moveSpeed: 10
 --- !u!1 &574370539
 GameObject:
   m_ObjectHideFlags: 0

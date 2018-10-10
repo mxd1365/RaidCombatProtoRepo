@@ -22,12 +22,14 @@ public class CharacterControl : MonoBehaviour {
     private float horz = 0;
     private float vert = 0;
     private bool dashStart = false;
+    private float dashTimeLeft = 0;
     private float curDashCooldown = 0;
     private Vector2 cursorPos;
     void Update()
     {
         horz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
+
         if (Input.GetButtonDown("Jump") && curDashCooldown <= 0 && !dashing)
         {
             dashStart = true;
@@ -45,42 +47,49 @@ public class CharacterControl : MonoBehaviour {
         float updateTime = Time.deltaTime;
 
         Vector2 dir = new Vector2(horz, vert);
+        dir.Normalize();
         Debug.Log("dir:" + dir);
 
         if (dashStart)
         {
             Debug.Log("Dash!");
             dashDir = dir;
+            dashDir.Normalize();
             dashing = true;
-            rb2d.MovePosition(rb2d.position + (dashDir * dashDir * updateTime));
-            curDashCooldown = dashCooldown;
+            rb2d.velocity = dashDir * dashSpeed;
+            dashTimeLeft = dashTime;
             dashStart = false;
         }
         else if(!dashing)
         {
-            rb2d.MovePosition(rb2d.position + (dir * speed * updateTime));
-
-            Vector2 front = cursorPos - (Vector2)transform.position;
-            Debug.Log("CursorPos:" + cursorPos +" front:" + front);
-            front.Normalize();
-            float angleRot = Vector2.Angle(Vector2.right, front);
-            if (front.y < 0)
+            rb2d.velocity = speed * dir;
+            if(curDashCooldown > 0)
             {
-                angleRot = -angleRot;
+                curDashCooldown -= updateTime;
             }
-           
-            rb2d.rotation = angleRot;
-
         }
         else if(dashing)
         {
-            rb2d.MovePosition(rb2d.position + (dashDir * dashSpeed * updateTime));
-            curDashCooldown -= updateTime;
-            if(curDashCooldown <= 0)
+            dashDir.Normalize();
+            rb2d.velocity = dashDir * dashSpeed;
+            dashTimeLeft -= updateTime;
+            if(dashTimeLeft <= 0)
             {
                 dashing = false;
+                curDashCooldown = dashCooldown;
             }
         }
-        Debug.Log("Vel:" + rb2d.velocity);
+        Vector2 front = cursorPos - (Vector2)transform.position;
+        //Debug.Log("CursorPos:" + cursorPos + " front:" + front);
+        front.Normalize();
+
+        float angleRot = Vector2.Angle(Vector2.right, front);
+        if (front.y < 0)
+        {
+            angleRot = -angleRot;
+        }
+
+        rb2d.rotation = angleRot;
+        //Debug.Log("Vel:" + rb2d.velocity);
 	}
 }
