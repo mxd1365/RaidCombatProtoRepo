@@ -47,7 +47,6 @@ public class CharacterControl : MonoBehaviour {
         float updateTime = Time.deltaTime;
 
         Vector2 dir = new Vector2(horz, vert);
-        dir.Normalize();
         Debug.Log("dir:" + dir);
 
         if (dashStart)
