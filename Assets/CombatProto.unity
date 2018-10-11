@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b10ba984cea9ff4d8e972e352ede99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camFollowDistance: 5
+  camBorderDistance: 0
   moveSpeed: 20
   lerpSpeed: 1
 --- !u!1 &574370539
