@@ -34,7 +34,7 @@ public class EnemyBehavior : MonoBehaviour {
     void FixedUpdate ()
     {
         float updateTime = Time.fixedDeltaTime;
-        Debug.Log("myMode: " + myMode);
+        //Debug.Log("myMode: " + myMode);
         
         switch (myMode)
         {

@@ -304,6 +304,8 @@
     <Compile Include="Assets\Scripts\LevelScripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CharacterControl.cs" />
+    <Compile Include="Assets\Scripts\WeaponScripts\IWeapon.cs" />
+    <Compile Include="Assets\Scripts\WeaponScripts\ScoutRifle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />

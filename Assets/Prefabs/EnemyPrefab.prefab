@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114094964656824972}
   - component: {fileID: 114892279938750294}
   - component: {fileID: 50121699422542026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 0}
-  wanderSpeed: 0.5
+  wanderSpeed: 5
   wanderWalkTime: 3
   wanderStopTime: 2
   turnSpeed: 10

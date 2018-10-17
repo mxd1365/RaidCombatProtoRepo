@@ -39,6 +39,6 @@ public class CameraFollow : MonoBehaviour {
 
         Camera.main.transform.position = (new Vector3(newCamPos.x, newCamPos.y,Camera.main.transform.position.z));
         
-        Debug.Log("camTargetPos: " + newCamPos);
+       // Debug.Log("camTargetPos: " + newCamPos);
 	}
 }

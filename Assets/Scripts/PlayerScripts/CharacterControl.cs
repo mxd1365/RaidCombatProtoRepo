@@ -8,14 +8,19 @@ public class CharacterControl : MonoBehaviour {
     public float dashSpeed = 100;
     public float dashCooldown = .5f;
     public float dashTime = .8f;
+    public GameObject weaponObj;
+    private IWeapon weapon;
+
 
     private Rigidbody2D rb2d;
+    
 
 	// Use this for initialization
 	void Start () {
 
         Debug.Log("started");
         rb2d = GetComponent<Rigidbody2D>();
+        weapon = weaponObj.GetComponent<IWeapon>();
         
 	}
 
@@ -34,6 +39,10 @@ public class CharacterControl : MonoBehaviour {
         {
             dashStart = true;
         }
+        else if(Input.GetButtonDown("Fire1"))
+        {
+            weapon.Fire();
+        }
 
         cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -47,7 +56,7 @@ public class CharacterControl : MonoBehaviour {
         float updateTime = Time.deltaTime;
 
         Vector2 dir = new Vector2(horz, vert);
-        Debug.Log("dir:" + dir);
+       // Debug.Log("dir:" + dir);
 
         if (dashStart)
         {
